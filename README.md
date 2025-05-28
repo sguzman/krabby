@@ -90,12 +90,15 @@ OPTIONS:
 
 SUBCOMMANDS:
     help      Print this message or the help of the given subcommand(s)
-    list      Print list of all pokemon
+    list      Print list of all pokemon. This command can optionally be followed by a generation
+                  number or range (1-9) to show pokemon from a specific generation or range of
+                  generations. The generations can be provided as a continuous range (eg. 1-3) or
+                  as a list of generations (1,3,6)
     name      Select pokemon by name. Generally spelled like in the games. A few exceptions are
                   nidoran-f, nidoran-m, mr-mime, farfetchd, flabebe type-null etc. Perhaps grep the
                   output of list if in doubt
     random    Show a random pokemon. This command can optionally be followed by a generation
-                  number or range (1-8) to show random pokemon from a specific generation or range
+                  number or range (1-9) to show random pokemon from a specific generation or range
                   of generations. The generations can be provided as a continuous range (eg. 1-3) or
                   as a list of generations (1,3,6)
 ```
@@ -122,7 +125,7 @@ Print an alternative form of a pokemon
 ```
 krabby name blastoise -f mega
 ```
-Print a random pokemon (gens 1-8)
+Print a random pokemon (gens 1-9)
 ```
 krabby random
 ```
@@ -138,10 +141,14 @@ Print a random pokemon excluding megas, gigantamax and regional variants
 ```
 krabby random --no-mega --no-gmax --no-regional
 ```
+Print a random pokemon excluding all variants (like above, including one-offs like `primal`)
+```
+krabby random --no-variant
+```
 
 ## Configuration
 When the program is run, a TOML config file will automatically be created in the user's config
-directory (usually `~/.config`) under `krabby/config.toml` if it doesn't exist already. 
+directory (usually `~/.config`) under `krabby/config.toml` if it doesn't exist already.
 
 On MacOS the config will be in: `/Users/<username>/Library/Application Support/krabby`
 On Windows this will be: `C:\Users\<username>\AppData\Roaming\krabby`
@@ -159,6 +166,8 @@ shiny_rate = 0.0078125
 ## Credits
 The pokemon sprites for krabby were generated using sprites from [PokéSprite](https://msikma.github.io/pokesprite/)
 and converted to unicode using Phoney Badger's [pokemon-generator-scripts](https://gitlab.com/phoneybadger/pokemon-generator-scripts).
+The pokemon data was obtained from [PokéAPI](https://github.com/PokeAPI/pokeapi).
+
 
 ## Similar projects
 - [pokemon-colorscripts](https://gitlab.com/phoneybadger/pokemon-colorscripts)
