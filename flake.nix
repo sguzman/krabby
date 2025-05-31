@@ -27,7 +27,7 @@
         buildInputs = [ ];
 
         # Optional: Enable crate features (if needed)
-        cargoFeatures = [ "--verbose" ];
+        cargoFeatures = [ "--verbose" "--release" "--jobs 16" ];
       };
 
       # This allows you to run the package as a flake app
