@@ -19,7 +19,7 @@
         # Set your source directory (can be a relative path to Cargo.toml)
         src = ./.;
 
-        cargoHash = "sha256-/wXfdH9ObKGOw8EXHG/3Gvhm66v632lpDp/V3zFIzh4=";
+        cargoHash = "sha256-saD/r5GmGe1PwvryH5iJ6ZccHkOCYlks2XTjR03uR1k=";
 
         nativeBuildInputs = [ pkgs.pkg-config ];
 
