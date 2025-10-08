@@ -1,40 +1,39 @@
 {
-  description = "A Rust project as a Nix flake";
+  description = "Krabby: Print pokemon sprites in your terminal";
 
   inputs = {
-    # Add the nixpkgs flake for package dependencies
-    nixpkgs.url = "github:NixOS/nixpkgs";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    systems.url = "github:nix-systems/default";
+
+    blueprint = {
+      url = "github:numtide/blueprint";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.systems.follows = "systems";
+    };
+
+    devshell = {
+      url = "github:numtide/devshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    naersk = {
+      url = "github:nix-community/naersk";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs }:
-    let
-      system = "x86_64-linux";  # Adjust for your system (e.g., "aarch64-linux" for ARM)
-      pkgs = nixpkgs.legacyPackages.${system};
-    in
-    {
-      packages.${system}.default = pkgs.rustPlatform.buildRustPackage {
-        pname = "krabby";
-        version = "0.1.8";
-
-        # Set your source directory (can be a relative path to Cargo.toml)
-        src = ./.;
-
-        cargoHash = "sha256-saD/r5GmGe1PwvryH5iJ6ZccHkOCYlks2XTjR03uR1k=";
-
-        nativeBuildInputs = [ pkgs.pkg-config ];
-
-        # Optional: Specify any additional dependencies
-        buildInputs = [ ];
-
-        # Optional: Enable crate features (if needed)
-        cargoFeatures = [ "--verbose" "--release" "--jobs 16" ];
-      };
-
-      # This allows you to run the package as a flake app
-      apps.default = {
-        type = "app";
-        program = "${self.packages.${system}.default}/bin/krabby";
-      };
+  outputs = inputs:
+    inputs.blueprint {
+      inherit inputs;
+      # <- IMPORTANT: we’re using the prefixed layout
+      prefix = "nix/";
+      # Let Blueprint pick systems from the input set (or override explicitly)
+      #systems = [ inputs.systems ];
+      systems = ["x86_64-linux"];
     };
 }
-
