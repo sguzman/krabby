@@ -35,10 +35,5 @@
       # Let Blueprint pick systems from the input set (or override explicitly)
       #systems = [ inputs.systems ];
       systems = ["x86_64-linux"];
-
-      # Explicitly import your outputs module so packages.default is exposed.
-      imports = [
-        ./nix/parts/outputs.nix
-      ];
     };
 }
